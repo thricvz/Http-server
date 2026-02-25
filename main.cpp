@@ -1,9 +1,13 @@
 #include <iostream>
 #include "HttpServer.hpp"
+#include <csignal>
+
 
 int main() {
-  std::cout << "Eric\n";
   HttpServer server;
+  try {
 
+    server.start();
+  } catch(...) {};
   return 0;
 };

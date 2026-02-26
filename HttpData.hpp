@@ -2,6 +2,7 @@
 #define HTTP_DATA_H
 
 #include <string>
+#include <map>
 
 enum class HttpMethod {
   GET,
@@ -27,8 +28,7 @@ struct HttpHeader {
 };
 
 struct HttpOptions {
-
-
+  std::map<std::string,std::string> fields{};
 };
 
 

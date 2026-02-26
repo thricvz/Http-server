@@ -8,6 +8,9 @@ int main() {
   try {
 
     server.start();
-  } catch(...) {};
+  } catch(std::exception& error) {
+    std::cerr << error.what();
+
+  };
   return 0;
 };

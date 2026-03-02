@@ -1,10 +1,12 @@
 #include <iostream>
-#include "HttpServer.hpp"
+#include "HttpTargetHandlers/HelloWorldHandler.hpp"
+#include "Include/HttpServer.hpp"
 #include <csignal>
 
 
 int main() {
   HttpServer server;
+  server.register_url(map_to_url<HelloWorldHandler>("/hello"));
   try {
 
     server.start();

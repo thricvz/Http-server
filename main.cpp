@@ -5,8 +5,12 @@
 
 
 int main() {
-  HttpServer server;
-  server.register_url(map_to_url<HelloWorldHandler>("/hello"));
+  
+  HttpServer server(create_urls()
+      .map_handler_to_url<HelloWorldHandler>("/hello")
+      .map_handler_to_url<HelloWorldHandler>("/owaowa")
+  );
+    
   try {
 
     server.start();

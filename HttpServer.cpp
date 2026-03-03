@@ -2,12 +2,14 @@
 
 #include "Include/HttpData.hpp"
 #include "Include/HttpResponse.hpp"
+#include "Include/HttpTargetHandler.hpp"
 #include "Include/ParsingHelperFunctions.hpp"
 
 #include "HttpTargetHandlers/HelloWorldHandler.hpp"
+#include "Include/UrlMapping.hpp"
 #include <cstdint>
 
-HttpServer::HttpServer() {
+HttpServer::HttpServer(UrlMapper* mapper) : m_urls(mapper), m_socket(-1)  {
   setup_server_sockets();
 }
 
@@ -39,7 +41,6 @@ void HttpServer::setup_server_sockets() {
   
   m_status = HttpServerStatus::VALID;
 }
-
 void HttpServer::start() const {
   if (m_status == HttpServerStatus::INVALID || m_status == HttpServerStatus::ASLEEP) 
     throw std::runtime_error("server must be in valid state to start\n");
@@ -63,21 +64,33 @@ void HttpServer::start() const {
   }
 }
 
-void HttpServer::register_url(UrlMap* mapping){
-  // not checking if already contained (should it be my responsability?)
-  m_urls.push_back(mapping);
-};
 
+void HttpServer::send_error(int32_t connection_socket, int error_code) const {
+  HttpResponse response;
+  response.add_status_line({"HTTP/1.1", "Error", 404})
+    .add_header("Access-Control-Allow-Origin", "*");
+
+  while(send(connection_socket, response.content.c_str(), response.content.size(), 0) <= 0) 
+      ; 
+  
+  close(connection_socket);
+};
 
 // rather use a hashmap O(1) instant access
 void HttpServer::launch_request_handler(const HttpRequest& request, int32_t client_socket) const {
+  if (m_urls == nullptr) {
+    this->send_error(client_socket, 404);
+    return;
+  }
 
-  for (auto url_map : m_urls) {
-    if ( url_map->is_mapped_to(request.request_line.target) ) {
-      url_map->get()->handle(request, client_socket);
-      break;      
-    }
-  }  
+  HttpTargetHandler* handler = m_urls->retrieve_handler(request.request_line.target);
+
+  if (handler == nullptr) {
+    this->send_error(client_socket, 404);
+    return ;
+  }
+
+  handler->handle(request, client_socket);
 };
 
 

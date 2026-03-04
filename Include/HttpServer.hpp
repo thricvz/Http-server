@@ -37,15 +37,16 @@ class HttpServer {
     HttpServer(UrlMapper* url_map); 
     ~HttpServer() { close(m_socket); }; 
     
-    void start() const;
+    virtual void start() const final;
+    
+  protected:
+    virtual void send_error(int32_t connection_socket, const std::string& error_description, uint32_t error_code) const ;
 
   private:
-
 
     void launch_request_handler(const HttpRequest& request, int32_t client_socket) const;
     void setup_server_sockets();
 
-    void send_error(int32_t connection_socket, int error_code) const ;
 
     HttpRequest     parse_request(const char* raw_data) const;
     HttpRequestLine parse_request_line(const std::string& request_line) const; 

@@ -5,12 +5,12 @@ function send_request() {
     const text_input = document.getElementById("input-1")
     const msg = text_input.value
 
-    const fetch_result = fetch('http://localhost:8080/hello', {
+    const fetch_result = fetch('http://localhost:8080/falseurl', {
       method : "POST",
       body : msg
     }).then(response => response.json())
     .then(body => add_item_to_list(body["message"]))
-    .catch(error => console.log("had and error " + error))
+    .catch(error => console.log("this thing is not working"))
 
     return 0;
 }

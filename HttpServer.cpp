@@ -64,28 +64,27 @@ void HttpServer::start() const {
 }
 
 
-void HttpServer::send_error(int32_t connection_socket, int error_code) const {
+void HttpServer::send_error(int32_t connection_socket, const std::string& error_description, uint32_t error_code) const {
   HttpResponse response;
-  response.add_status_line({"HTTP/1.1", "Error", 404})
+  response.add_status_line({"HTTP/1.1", error_description, error_code})
     .add_header("Access-Control-Allow-Origin", "*");
 
-  while(send(connection_socket, response.content.c_str(), response.content.size(), 0) <= 0) 
-      ; 
-  
+  send(connection_socket, response.content.c_str(), response.content.size(), 0); 
+
   close(connection_socket);
 };
 
 // rather use a hashmap O(1) instant access
 void HttpServer::launch_request_handler(const HttpRequest& request, int32_t client_socket) const {
   if (m_urls == nullptr) {
-    this->send_error(client_socket, 404);
+    this->send_error(client_socket, "Not Found", 404);
     return;
   }
 
   HttpTargetHandler* handler = m_urls->retrieve_handler(request.request_line.target);
 
   if (handler == nullptr) {
-    this->send_error(client_socket, 404);
+    this->send_error(client_socket, "Not Found", 404);
     return ;
   }
 

@@ -10,8 +10,11 @@ set(CMAKE_BUILD_TYPE Debug)
 include_directories(Include/)
 include_directories(HttpTargetHandlers/)
 
+
+add_subdirectory(Parsing)
+
 add_library(HttpServerLib HttpServer.cpp)
 add_executable(main main.cpp)
 
-target_link_libraries(main HttpServerLib)
+target_link_libraries(main HttpServerLib ParsingLib)
 

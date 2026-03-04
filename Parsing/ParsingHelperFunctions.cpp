@@ -1,17 +1,4 @@
-#ifndef PARSING_HELPER_FUNCTIONS_H
-#define PARSING_HELPER_FUNCTIONS_H
-
-#include <cstdint>
-#include <vector>
-#include <string>
-
-namespace parsing {
-  static std::vector<std::string> split_string(const std::string& raw_string, char delimiter);
-
-  static std::string strip_string_from(const std::string& raw_string, char character ); 
-  
-  static void replace(std::string& target, const std::string& to_replace, const std::string& replacement);
-}
+#include "../Include/Parsing/ParsingHelperFunctions.hpp"
 
 
 std::vector<std::string> parsing::split_string(const std::string &raw_string, char delimiter) {
@@ -61,4 +48,3 @@ void parsing::replace(std::string& target,
       target.replace(found_index, to_replace_length, replacement);
     }
 }
-#endif

@@ -2,7 +2,7 @@
 #define HTTP_RESPONSE
 
 
-#include "ParsingHelperFunctions.hpp"
+#include "Parsing/ParsingHelperFunctions.hpp"
 #include <cstdint>
 #include <string>
 

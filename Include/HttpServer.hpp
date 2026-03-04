@@ -24,8 +24,6 @@
 #include <errno.h>
 
 
-
-
 class UrlMap;
 
 class HttpServer {

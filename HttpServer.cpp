@@ -1,9 +1,8 @@
 #include "Include/HttpServer.hpp"
 
-#include "Include/HttpData.hpp"
 #include "Include/HttpResponse.hpp"
 #include "Include/HttpTargetHandler.hpp"
-#include "Include/ParsingHelperFunctions.hpp"
+#include "Include/Parsing/ParsingHelperFunctions.hpp"
 
 #include "HttpTargetHandlers/HelloWorldHandler.hpp"
 #include "Include/UrlMapping.hpp"

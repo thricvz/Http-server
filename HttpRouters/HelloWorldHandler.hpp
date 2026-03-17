@@ -1,8 +1,8 @@
-#ifndef HELLO_WORLD_HANDLER_H
-#define HELLO_WORLD_HANDLER_H
+#ifndef HELLO_WORLD_ROUTER
+#define HELLO_WORLD_ROUTER
 
 
-#include "../Include/HttpTargetHandler.hpp"
+#include "../Include/HttpRouter.hpp"
 #include "../Include/HttpResponse.hpp"
 
 #include <cstdint>
@@ -12,7 +12,7 @@
 #include <iostream>
 #include <memory>
 
-class HelloWorldHandler : public HttpTargetHandler {
+class HelloWorldRouter : public HttpRouter {
   public: 
     void handle(const HttpRequest& request, int32_t connection_socket) const override {
       std::cout << "Hello i would like to tell this message: "  << request.body << std::endl;

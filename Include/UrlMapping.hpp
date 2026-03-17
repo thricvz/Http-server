@@ -1,7 +1,7 @@
 #ifndef URL_MAPPING_H
 #define URL_MAPPING_H
 
-#include "HttpTargetHandler.hpp"
+#include "HttpRouter.hpp"
 #include <stdexcept>
 
 
@@ -17,7 +17,7 @@ class UrlMapper{
       return *this;
     };
 
-    HttpTargetHandler* retrieve_handler(const std::string& target) const {
+    HttpRouter * retrieve_handler(const std::string& target) const {
       try {
         auto& handler = m_url_map.at(target);
         return handler;
@@ -34,7 +34,7 @@ class UrlMapper{
   private:
     UrlMapper() = default;
 
-    std::map<std::string, HttpTargetHandler*> m_url_map{};
+    std::map<std::string, HttpRouter*> m_url_map{};
 }; 
 
 

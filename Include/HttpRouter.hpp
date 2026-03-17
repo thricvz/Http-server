@@ -1,11 +1,11 @@
-#ifndef HTTP_TARGET_HANDLER_H
-#define HTTP_TARGET_HANDLER_H
+#ifndef HTTP_ROUTER_H
+#define HTTP_ROUTER_H
 
 #include "HttpData.hpp"
 #include <cstdint>
 #include <memory>
 
-class HttpTargetHandler {
+class HttpRouter {
   public: 
     virtual void handle(const HttpRequest& request, int32_t connection_socket) const = 0;
 };

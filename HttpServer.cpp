@@ -1,10 +1,10 @@
 #include "Include/HttpServer.hpp"
 
 #include "Include/HttpResponse.hpp"
-#include "Include/HttpTargetHandler.hpp"
+#include "Include/HttpRouter.hpp"
 #include "Include/Parsing/ParsingHelperFunctions.hpp"
 
-#include "HttpTargetHandlers/HelloWorldHandler.hpp"
+#include "HttpRouters/HelloWorldHandler.hpp"
 #include "Include/UrlMapping.hpp"
 #include <cstdint>
 
@@ -81,7 +81,7 @@ void HttpServer::launch_request_handler(const HttpRequest& request, int32_t clie
     return;
   }
 
-  HttpTargetHandler* handler = m_urls->retrieve_handler(request.request_line.target);
+  HttpRouter* handler = m_urls->retrieve_handler(request.request_line.target);
 
   if (handler == nullptr) {
     this->send_error(client_socket, "Not Found", 404);

@@ -2,7 +2,7 @@
 #define HTTP_SERVER_H
 
 #include "HttpData.hpp"
-#include "HttpTargetHandler.hpp"
+#include "HttpRouter.hpp"
 #include "UrlMapping.hpp"
 
 #include <algorithm>

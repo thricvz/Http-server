@@ -17,6 +17,8 @@ using json = nlohmann::json;
 
 class UserRouter : public HttpRouter {
   public: 
+    UserRouter(RessourceManager* ressources) : HttpRouter(ressources) {};
+
     void handle(const HttpRequest& request, int32_t connection_socket) const override {
 
       HttpResponse response;
@@ -29,7 +31,7 @@ class UserRouter : public HttpRouter {
 
       response.add_status_line({"HTTP/1.1", "OK", 200})
         .add_header("Access-Control-Allow-Origin", "*")
-        .add_body(std::move(response_message));
+        .add_body(to_string(response_message));
 
       if (send(connection_socket, response.content.c_str(), response.content.size(), 0) <= 0) {
         std::cerr << "[ Error "<< request.request_line.target << " ] : failed to send response \n";

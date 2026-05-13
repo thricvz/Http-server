@@ -14,6 +14,8 @@
 
 class HelloWorldRouter : public HttpRouter {
   public: 
+    HelloWorldRouter(RessourceManager* ressources) : HttpRouter(ressources) {};
+
     void handle(const HttpRequest& request, int32_t connection_socket) const override {
       std::cout << "Hello i would like to tell this message: "  << request.body << std::endl;
 

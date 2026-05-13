@@ -1,6 +1,7 @@
 #ifndef URL_MAPPING_H
 #define URL_MAPPING_H
 
+#include "RessourceManager.hpp"
 #include "HttpRouter.hpp"
 #include <stdexcept>
 
@@ -10,8 +11,8 @@ class UrlMapper{
 
   public:
     template<typename TargetHandler> 
-    UrlMapper& map_handler_to_url(const std::string& target) {
-      static TargetHandler new_handler;       
+    UrlMapper& map_handler_to_url(const std::string& target, RessourceManager* ressources) {
+      static TargetHandler new_handler(ressources);       
       m_url_map[target]  = &new_handler;
 
       return *this;

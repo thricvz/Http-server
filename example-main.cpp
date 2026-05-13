@@ -6,9 +6,11 @@
 #include "HttpRouters/UserHandler.hpp"
 
 int main() {
+  RessourceManager* const ressources = RessourceManager::Instance();
+  
   HttpServer server(create_urls()
-      .map_handler_to_url<UserRouter>("/")
-      .map_handler_to_url<HelloWorldRouter>("/user")
+      .map_handler_to_url<UserRouter>("/", ressources)
+      .map_handler_to_url<HelloWorldRouter>("/user", ressources)
   );
     
   try {

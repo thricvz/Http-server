@@ -16,5 +16,5 @@ add_subdirectory(Parsing)
 add_library(HttpServerLib HttpServer.cpp)
 add_executable(main example-main.cpp)
 
-target_link_libraries(main HttpServerLib ParsingLib) 
+target_link_libraries(main HttpServerLib ParsingLib RessourceManagerLib) 
 
